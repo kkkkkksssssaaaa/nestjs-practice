@@ -4,6 +4,9 @@ dist/
 dist/**
 /dist
 /dist/**
+./dist
+./dist/**
+/dist/
 
 # IDE
 /.idea
