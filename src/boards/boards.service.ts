@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Board, BoardStatus } from '../../dist/boards/board.model';
 import { randomUUID } from 'crypto';
+import { Board, BoardStatus } from './board.model';
 
 @Injectable()
 export class BoardsService {

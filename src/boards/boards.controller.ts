@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { BoardsService } from './boards.service';
-import { Board } from '../../dist/boards/board.model';
+import { Board } from './board.model';
 
 // 컨트롤러 클래스임을 명시하는 데코레이터
 @Controller('boards')
