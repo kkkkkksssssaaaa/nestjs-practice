@@ -13,7 +13,7 @@ export class BoardsController {
     return this.service.getAllBoards();
   }
 
-  @Get(':id')
+  @Get('/:id')
   getBoardById(@Param('id') id: string): Board {
     return this.service.getBoardById(id);
   }
