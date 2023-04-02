@@ -11,6 +11,7 @@ import {
 import { BoardsService } from './boards.service';
 import { Board, BoardStatus } from './board.model';
 import { CreateBoardDto } from './dto/create-board.dto';
+import { BoardStatusValidationPipe } from './dto/board-status-validation.pipe';
 
 // 컨트롤러 클래스임을 명시하는 데코레이터
 @Controller('boards')
@@ -41,7 +42,7 @@ export class BoardsController {
   @Patch('/:id/status')
   updateBoardStatus(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body('status') status: BoardStatus,
+    @Body('status', BoardStatusValidationPipe) status: BoardStatus,
   ) {
     return this.service.updateBoardStatus(id, status);
   }
