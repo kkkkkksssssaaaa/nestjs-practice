@@ -7,11 +7,13 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  UsePipes,
 } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 import { Board, BoardStatus } from './board.model';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardStatusValidationPipe } from './dto/board-status-validation.pipe';
+import { CreateBoardPipe } from './dto/create-board.pipe';
 
 // 컨트롤러 클래스임을 명시하는 데코레이터
 @Controller('boards')
@@ -30,6 +32,7 @@ export class BoardsController {
 
   // json object 를 받으려면... @Body() 를 사용하여 전달받음
   @Post()
+  @UsePipes(CreateBoardPipe)
   createBoard(@Body() dto: CreateBoardDto): Board {
     return this.service.createBoard(dto);
   }
