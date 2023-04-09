@@ -22,14 +22,10 @@ export class BoardsService {
   }
 
   createBoard(dto: CreateBoardDto) {
-    const { title, description } = dto;
-
-    console.log(title, description);
-
     const board: Board = {
       id: randomUUID(),
-      title,
-      description,
+      title: dto.title,
+      description: dto.description,
       status: BoardStatus.PUBLIC,
     };
 
@@ -43,7 +39,6 @@ export class BoardsService {
   }
 
   updateBoardStatus(id: string, status: BoardStatus): Board {
-    console.log(status);
     const board: Board = this.getBoardById(id);
     board.status = status;
 
