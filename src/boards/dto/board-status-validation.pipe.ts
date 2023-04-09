@@ -8,7 +8,7 @@ import { BoardStatus } from '../board.model';
 
 @Injectable()
 export class BoardStatusValidationPipe implements PipeTransform {
-  transform(value: any, metadata: ArgumentMetadata) {
+  transform(value: string, metadata: ArgumentMetadata): BoardStatus {
     this.logging(value, metadata);
     return this.parseStringToStatus(value);
   }
