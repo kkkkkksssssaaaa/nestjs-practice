@@ -11,9 +11,10 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { BoardsService } from './boards.service';
-import { Board, BoardStatus } from './board.model';
+import { BoardStatus } from './model/board-status.model';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardStatusValidationPipe } from './dto/board-status-validation.pipe';
+import { Board } from './entity/board.entity';
 
 // 컨트롤러 클래스임을 명시하는 데코레이터
 @Controller('boards')
