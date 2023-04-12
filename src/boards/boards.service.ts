@@ -1,17 +1,18 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { randomUUID } from 'crypto';
-import { Board, BoardStatus } from './board.model';
+import { BoardStatus } from './model/board-status.enum';
 import { CreateBoardDto } from './dto/create-board.dto';
+import { Board } from './entity/board.entity';
+import { BoardRepository } from './repository/board.repository';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class BoardsService {
-  private readonly defaultBoard: Board = {
-    id: '7b46b1a0-6dd6-4e8b-8f7d-cfc1f2eb1050',
-    title: 'title',
-    description: 'description',
-    status: BoardStatus.PUBLIC,
-  };
-  private boards: Board[] = [this.defaultBoard];
+  constructor(
+    @InjectRepository(BoardRepository)
+    private readonly repository: BoardRepository,
+  ) {}
+
+  private boards: Board[] = [];
 
   getAllBoards(): Board[] {
     return this.boards;
@@ -29,7 +30,6 @@ export class BoardsService {
 
   createBoard(dto: CreateBoardDto) {
     const board: Board = {
-      id: randomUUID(),
       title: dto.title,
       description: dto.description,
       status: BoardStatus.PUBLIC,
