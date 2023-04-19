@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserRepository } from './repository/user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entity/user.entity';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
+import { QueryFailedError } from 'typeorm';
 
 @Injectable()
 export class AuthService {
@@ -17,6 +18,14 @@ export class AuthService {
       password: dto.password,
     });
 
-    return await this.repository.save(user);
+    try {
+      return await this.repository.save(user);
+    } catch (e) {
+      if (e instanceof QueryFailedError) {
+        throw new BadRequestException();
+      }
+
+      throw e;
+    }
   }
 }
