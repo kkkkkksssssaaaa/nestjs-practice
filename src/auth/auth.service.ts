@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
 import { UserRepository } from './repository/user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entity/user.entity';
@@ -22,7 +26,7 @@ export class AuthService {
       return await this.repository.save(user);
     } catch (e) {
       if (e instanceof QueryFailedError) {
-        throw new BadRequestException();
+        throw new ConflictException();
       }
 
       throw e;
