@@ -41,7 +41,11 @@ export class AuthService {
   }
 
   async signIn(dto: AuthCredentialsDto): Promise<string> {
-    const user = await this.repository.findOne({ name: dto.name });
+    const user = await this.repository.findOne({
+      where: {
+        name: dto.name,
+      },
+    });
 
     if (user && (await bcrypt.compare(dto.password, user.password))) {
       return 'logIn success';
