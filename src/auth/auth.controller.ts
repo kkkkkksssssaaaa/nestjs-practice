@@ -12,7 +12,9 @@ export class AuthController {
   }
 
   @Post('/signin')
-  async signIn(@Body(ValidationPipe) dto: AuthCredentialsDto): Promise<string> {
+  async signIn(@Body(ValidationPipe) dto: AuthCredentialsDto): Promise<{
+    accessToken: string;
+  }> {
     return await this.service.signIn(dto);
   }
 }

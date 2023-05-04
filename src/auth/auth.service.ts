@@ -41,7 +41,7 @@ export class AuthService {
     }
   }
 
-  async signIn(dto: AuthCredentialsDto): Promise<string> {
+  async signIn(dto: AuthCredentialsDto): Promise<{ accessToken: string }> {
     const user = await this.repository.findOne({
       where: {
         name: dto.name,
@@ -49,7 +49,13 @@ export class AuthService {
     });
 
     if (user && (await bcrypt.compare(dto.password, user.password))) {
-      return 'logIn success';
+      const payload = {
+        name: dto.name,
+      };
+
+      const accessToken = await this.jwtService.sign(payload);
+
+      return { accessToken };
     } else {
       throw new UnauthorizedException('logIn failed');
     }
