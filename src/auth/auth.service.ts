@@ -9,12 +9,14 @@ import { User } from './entity/user.entity';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { QueryFailedError } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly repository: UserRepository,
+    private readonly jwtService: JwtService,
   ) {}
 
   async signUp(dto: AuthCredentialsDto): Promise<User> {
