@@ -27,6 +27,7 @@
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/typeorm": "^9.0.1",
+    "@types/passport-jwt": "^3.0.8",
     "ajv": "^6.12.6",
     "ajv-keywords": "^3.5.2",
     "bcryptjs": "^2.4.3",
