@@ -9,6 +9,8 @@ import {
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
+import { Getuser } from './get-user.decorator';
+import { User } from './entity/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -27,8 +29,9 @@ export class AuthController {
   }
 
   @Post('/test')
+  // Guard 를 선언해야 Custom Parameter Decorator 를 사용할 수 있나보다..
   @UseGuards(AuthGuard())
-  test(@Req() req) {
-    console.log('req', req);
+  test(@Getuser() user: User) {
+    console.log(user);
   }
 }
