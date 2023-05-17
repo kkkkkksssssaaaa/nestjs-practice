@@ -14,8 +14,14 @@ export class BoardsService {
     private readonly repository: BoardRepository,
   ) {}
 
-  async getAllBoards(): Promise<Board[]> {
-    return await this.repository.find();
+  async getAllBoards(user: User): Promise<Board[]> {
+    return await this.repository.find({
+      where: {
+        user: {
+          id: user.id,
+        },
+      },
+    });
   }
 
   async getBoardById(id: number): Promise<Board> {
