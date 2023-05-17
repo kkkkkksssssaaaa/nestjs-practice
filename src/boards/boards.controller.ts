@@ -17,6 +17,8 @@ import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardStatusValidationPipe } from './dto/board-status-validation.pipe';
 import { Board } from './entity/board.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { Getuser } from 'src/auth/get-user.decorator';
+import { User } from 'src/auth/entity/user.entity';
 
 @UseGuards(AuthGuard())
 // 컨트롤러 클래스임을 명시하는 데코레이터
@@ -37,8 +39,11 @@ export class BoardsController {
   // json object 를 받으려면... @Body() 를 사용하여 전달받음
   @Post()
   @UsePipes(ValidationPipe)
-  createBoard(@Body() dto: CreateBoardDto): Promise<Board> {
-    return this.service.createBoard(dto);
+  createBoard(
+    @Body() dto: CreateBoardDto,
+    @Getuser() user: User,
+  ): Promise<Board> {
+    return this.service.createBoard(dto, user);
   }
 
   @Delete('/:id')
