@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -15,7 +16,9 @@ import { BoardStatus } from './model/board-status.enum';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardStatusValidationPipe } from './dto/board-status-validation.pipe';
 import { Board } from './entity/board.entity';
+import { AuthGuard } from '@nestjs/passport';
 
+@UseGuards(AuthGuard())
 // 컨트롤러 클래스임을 명시하는 데코레이터
 @Controller('boards')
 export class BoardsController {
